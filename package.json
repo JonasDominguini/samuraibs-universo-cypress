@@ -1,0 +1,16 @@
+{
+  "name": "samuraisbs-tests",
+  "version": "1.0.0",
+  "description": "Projeto de testes de aceitação de ponta a ponta em Cypress",
+  "main": "index.js",
+  "author": "Jonas Dominguini",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
+    "cypress": "^9.5.4",
+    "pg": "^8.7.3"
+  },
+  "dependencies": {
+    "@cypress/webpack-preprocessor": "^5.11.1"
+  }
+}
