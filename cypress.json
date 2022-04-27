@@ -1,5 +1,12 @@
 {
   "viewportWidth": 1440,
   "viewportHeight": 900,
-  "baseUrl": "http://localhost:3000"
+  "baseUrl": "http://localhost:3000",
+  "dbConfig": {
+    "host": "ruby.db.elephantsql.com",
+    "user": "seqoqehx",
+    "password": "n7mCqse82BwlQq2J0jPdXM7qXzuKXSz6",
+    "database": "seqoqehx",
+    "port": 5432
+  }
 }
