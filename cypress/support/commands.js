@@ -7,8 +7,8 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-Cypress.Commands.add('callWindowF2', () => {
-    cy.get('body').trigger('keyup', { keyCode: 113, which: 113, key: 'F2' });
+Cypress.Commands.add("callWindowF2", () => {
+  cy.get("body").trigger("keyup", { keyCode: 113, which: 113, key: "F2" });
 });
 //
 // -- This is a parent command --
@@ -25,3 +25,15 @@ Cypress.Commands.add('callWindowF2', () => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("postUser", function (user) {
+  cy.task("removeUser", user.email).then(function (result) {
+    console.log(result);
+  });
+
+  cy.request("POST", "http://localhost:3333/users", user).then(function (
+    response
+  ) {
+    expect(response.status).to.eq(200);
+  });
+});
