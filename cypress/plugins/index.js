@@ -12,8 +12,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-
-const { Pool } = require('pg')
+const { Pool } = require("pg");
 
 /**
  * @type {Cypress.PluginConfig}
@@ -22,27 +21,24 @@ const { Pool } = require('pg')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  const configJson = require(config.configFile)
+  const configJson = require(config.configFile);
 
+  const pool = new Pool(configJson.dbConfig);
 
-  const pool = new Pool(configJson.dbConfig)
-
-  on('task', {
+  on("task", {
     removeUser(email) {
-      return new Promise(function(resolve){
-        pool.query('DELETE FROM public.users WHERE email = $1' , [email], function(error, result){
-          if(error){
-            throw(error)  
+      return new Promise(function (resolve) {
+        pool.query(
+          "DELETE FROM public.users WHERE email = $1",
+          [email],
+          function (error, result) {
+            if (error) {
+              throw error;
+            }
+            resolve({ sucess: result });
           }
-          resolve({sucess: result})  
-          
-        })   
-  
-        
-      })
-      
-
-    }
-
-  })
-}
+        );
+      });
+    },
+  });
+};
