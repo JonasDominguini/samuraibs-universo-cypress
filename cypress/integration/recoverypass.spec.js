@@ -20,4 +20,15 @@ describe("resgate de senha ", function () {
       fpPage.toast.shouldtHaveText(message);
     });
   });
+  context.only("Quando usuário solicita o resgate", function () {
+    before(function () {
+      cy.postUser(this.data);
+      cy.recoveryPass(this.data.email);
+    });
+    it("Deve poder cadastrar uma nova senha ", function () {
+      cy.task("findToken", this.data.email).then(function (result) {
+        console.log(result);
+      });
+    });
+  });
 });
