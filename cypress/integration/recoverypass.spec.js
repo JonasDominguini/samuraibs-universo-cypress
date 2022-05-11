@@ -1,4 +1,5 @@
 import fpPage from "../support/pages/forgotpass";
+import rpPage from "../support/pages/resetpass";
 
 describe("resgate de senha ", function () {
   before(function () {
@@ -20,15 +21,22 @@ describe("resgate de senha ", function () {
       fpPage.toast.shouldtHaveText(message);
     });
   });
-  context.only("Quando usuário solicita o resgate", function () {
+
+  context("Quando usuário solicita o resgate", function () {
     before(function () {
       cy.postUser(this.data);
       cy.recoveryPass(this.data.email);
     });
     it("Deve poder cadastrar uma nova senha ", function () {
-      cy.task("findToken", this.data.email).then(function (result) {
-        console.log(result);
-      });
+      const token = Cypress.env("recoveryToken");
+
+      rpPage.go(token);
+      rpPage.form("abc123", "abc123");
+      rpPage.submit();
+
+      const message = "Agora você já pode logar com a sua nova senha secreta.";
+
+      rpPage.toast.shouldtHaveText(message);
     });
   });
 });

@@ -43,5 +43,9 @@ Cypress.Commands.add("recoveryPass", function (email) {
     email: email,
   }).then(function (response) {
     expect(response.status).to.eq(204);
+
+    cy.task("findToken", email).then(function (result) {
+      Cypress.env("recoveryToken", result.token);
+    });
   });
 });
