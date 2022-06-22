@@ -19,7 +19,7 @@ describe("dashboard", function () {
         password: "pwd123",
         is_provider: true,
       },
-      appointment:'17:00'
+      appointmentHour:'17:00'
     };
 
     before(function () {
@@ -87,7 +87,7 @@ Cypress.Commands.add("createAppointment", function (hour) {
     },
     failOnStatusCode: false
   }).then(function (response) {
-    expect(response.status).to.eq(400);
+    expect(response.status).to.eq(200);
   });
 });
 
