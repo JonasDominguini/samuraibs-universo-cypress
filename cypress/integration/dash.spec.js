@@ -4,47 +4,33 @@ const {
 
 import loginPage from "../support/pages/login";
 import dashPage from "../support/pages/dashboard";
+
+import { customer, provider, appointment } from "../support/factories/dash";
 describe("dashboard", function () {
   context("Quando o cliente faz um agendamento no app mobile", function () {
-    const data = {
-      customer: {
-        name: "Nikki Sixxi",
-        email: "sixx@motleycrue.com",
-        password: "pwd123",
-        is_provider: false,
-      },
-      provider: {
-        name: "Ramon Valdes",
-        email: "ramon@televisa.com",
-        password: "pwd123",
-        is_provider: true,
-      },
-      appointmentHour:'17:00'
-    };
-
     before(function () {
-      cy.postUser(data.provider);
-      cy.postUser(data.customer);
+      cy.postUser(provider);
+      cy.postUser(customer);
 
-      cy.apiLogin(data.customer);
+      cy.apiLogin(customer);
       cy.log("Conseguimos pegar o token " + Cypress.env("apiToken"));
-      cy.setProviderId(data.provider.email);
-      cy.createAppointment(data.appointmentHour);
+      cy.setProviderId(provider.email);
+      cy.createAppointment(appointment.hour);
     });
     it("O mesmo deve ser exibido no dashboard", function () {
       loginPage.go();
-      loginPage.form(data.provider);
+      loginPage.form(provider);
       loginPage.submit();
       dashPage.calendarShoulBeVisible();
 
       const day = Cypress.env("appointmentDay");
       dashPage.selectDay(day);
-      dashPage.appointmentShouldBe(data.customer, data.appointmentHour);
+      dashPage.appointmentShouldBe(customer, appointment.hour);
     });
   });
 });
 
-import moment from 'moment';
+import moment from "moment";
 
 Cypress.Commands.add("setProviderId", function (providerEmail) {
   cy.request({
@@ -76,16 +62,16 @@ Cypress.Commands.add("createAppointment", function (hour) {
 
   const payload = {
     provider_id: Cypress.env("providerId"),
-    date: date
+    date: date,
   };
   cy.request({
     method: "POST",
-    url: 'http://localhost:3333/appointments',
+    url: "http://localhost:3333/appointments",
     body: payload,
     headers: {
-      authorization: 'Bearer ' + Cypress.env('apiToken')
+      authorization: "Bearer " + Cypress.env("apiToken"),
     },
-    failOnStatusCode: false
+    failOnStatusCode: false,
   }).then(function (response) {
     expect(response.status).to.eq(200);
   });

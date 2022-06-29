@@ -25,22 +25,27 @@ Cypress.Commands.add("callWindowF2", () => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { apiServer } from "../../cypress.json";
 
 Cypress.Commands.add("postUser", function (user) {
   cy.task("removeUser", user.email).then(function (result) {
     console.log(result);
   });
 
-  cy.request("POST", "http://localhost:3333/users", user).then(function (
-    response
-  ) {
-    expect(response.status).to.eq(200);
-  });
+  cy.request({ method: "POST", url: apiServer + "/users", body: user }).then(
+    function (response) {
+      expect(response.status).to.eq(200);
+    }
+  );
 });
 
 Cypress.Commands.add("recoveryPass", function (email) {
-  cy.request("POST", "http://localhost:3333/password/forgot", {
-    email: email,
+  cy.request({
+    method: "POST",
+    url: apiServer + "/password/forgot",
+    body: {
+      email: email,
+    },
   }).then(function (response) {
     expect(response.status).to.eq(204);
 

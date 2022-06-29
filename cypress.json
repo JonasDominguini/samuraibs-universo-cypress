@@ -2,6 +2,7 @@
   "viewportWidth": 1440,
   "viewportHeight": 900,
   "baseUrl": "http://localhost:3000",
+  "apiServer": "http://localhost:3333",
   "dbConfig": {
     "host": "ruby.db.elephantsql.com",
     "user": "seqoqehx",
