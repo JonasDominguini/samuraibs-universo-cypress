@@ -27,17 +27,16 @@ Cypress.Commands.add("callWindowF2", () => {
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { apiServer } from "../../cypress.json";
 import moment from "moment";
-import loginPage from './pages/login'
-import dashPage from './pages/dashboard'
+import loginPage from "./pages/login";
+import dashPage from "./pages/dashboard";
 
 // App Actions
-Cypress.Commands.add('uiLogin', function(user){
-      loginPage.go();
-      loginPage.form(user);
-      loginPage.submit();
-      dashPage.header.userLoggedIn(user.name);
-})
-
+Cypress.Commands.add("uiLogin", function (user) {
+  loginPage.go();
+  loginPage.form(user);
+  loginPage.submit();
+  dashPage.header.userLoggedIn(user.name);
+});
 
 Cypress.Commands.add("setProviderId", function (providerEmail) {
   cy.request({
@@ -63,7 +62,7 @@ Cypress.Commands.add("createAppointment", function (hour) {
   let now = new Date();
   now.setDate(now.getDate() + 1);
 
-  Cypress.env("appointmentDay", now.getDate());
+  Cypress.env("appointmentDate", now);
 
   const date = moment(now).format(`YYYY-MM-DD " ${hour}:00`);
 
@@ -96,19 +95,15 @@ Cypress.Commands.add("apiLogin", function (user, setLocalStorage = false) {
   }).then(function (response) {
     expect(response.status).to.eq(200);
     Cypress.env("apiToken", response.body.token);
-    
 
     if (setLocalStorage) {
-      const { token, user} = response.body
-      window.localStorage.setItem('@Samurai:token', token)
-      window.localStorage.setItem('@Samurai:user', JSON.stringify(user))
+      const { token, user } = response.body;
+      window.localStorage.setItem("@Samurai:token", token);
+      window.localStorage.setItem("@Samurai:user", JSON.stringify(user));
     }
-    
-
   });
 
-  if (setLocalStorage) cy.visit('/dashboard')
-
+  if (setLocalStorage) cy.visit("/dashboard");
 });
 
 Cypress.Commands.add("postUser", function (user) {
