@@ -8,6 +8,7 @@ class LoginPage {
 
   go() {
     cy.visit("/");
+    cy.contains(el.title).should("be.visible"); // isso é um checkpoint, para verificar se está de fato na página que eu queria. Boas praticas.
   }
 
   form(user) {
