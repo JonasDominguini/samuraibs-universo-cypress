@@ -36,10 +36,10 @@ describe("Cadastro", function () {
     it("Deve exibir email já cadastrado", function () {
       signupPage.go();
       signupPage.form(this.email_dup);
+      signupPage.submit();
       signupPage.toast.shouldtHaveText(
         "Email já cadastrado para outro usuário."
       );
-      
     });
   });
 
@@ -53,7 +53,7 @@ describe("Cadastro", function () {
   });
 
   context("Quando a senha é muito curta", function () {
-    const password = ["1", "2a", "3a$", "abc4", "ab#c5", ];
+    const password = ["1", "2a", "3a$", "abc4", "ab#c5"];
 
     beforeEach(function () {
       signupPage.go();
