@@ -6,7 +6,7 @@ class DashPage {
   }
 
   calendarShoulBeVisible() {
-    cy.get(el.calendar, { timeout: 9000 }).should("be.visible");
+    cy.get(el.calendar).should("be.visible");
   }
   selectDay(appointmentDate) {
     let today = new Date();
