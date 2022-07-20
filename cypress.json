@@ -2,7 +2,7 @@
   "viewportWidth": 1440,
   "viewportHeight": 900,
   "baseUrl": "https://samuraibs-web-jonas.herokuapp.com",
-  "apiServer": "https://samurai-api-jonas.herokuapp.com",
+  "apiServer":"https://samurai-api-jonas.herokuapp.com",
   "dbConfig": {
     "host": "ruby.db.elephantsql.com",
     "user": "seqoqehx",

@@ -41,7 +41,7 @@ Cypress.Commands.add("uiLogin", function (user) {
 Cypress.Commands.add("setProviderId", function (providerEmail) {
   cy.request({
     method: "GET",
-    url: "http://localhost:3333/providers",
+    url: "https://samurai-api-jonas.herokuapp.com/providers",
     headers: {
       authorization: "Bearer " + Cypress.env("apiToken"),
     },
