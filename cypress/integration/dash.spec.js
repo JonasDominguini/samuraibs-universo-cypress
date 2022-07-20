@@ -1,6 +1,3 @@
-const {
-  getCypressElementCoordinates,
-} = require("cypress-real-events/getCypressElementCoordinates");
 import dashPage from "../support/pages/dashboard";
 
 import { customer, provider, appointment } from "../support/factories/dash";
