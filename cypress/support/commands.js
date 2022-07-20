@@ -70,6 +70,9 @@ Cypress.Commands.add("createAppointment", function (hour) {
     provider_id: Cypress.env("providerId"),
     date: date,
   };
+
+  cy.log(payload);
+
   cy.request({
     method: "POST",
     url: apiServer + "/appointments",
